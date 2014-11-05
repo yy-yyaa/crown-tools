@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "toolbox", "crown-toolbox\to
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "console", "console\console.csproj", "{1307AAA0-BFB8-494C-83CB-A4171C2E87F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crown-tests", "crown-tests\crown-tests.csproj", "{4E5F6C4E-8C96-4903-B6AE-5C9ADCFC2C20}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "core", "core\core.csproj", "{B26EAA66-08A9-493F-9C9F-85F7F5C57304}"
 EndProject
 Global
