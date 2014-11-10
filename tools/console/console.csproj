@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{1307AAA0-BFB8-494C-83CB-A4171C2E87F1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>console</RootNamespace>
+    <RootNamespace>Crown</RootNamespace>
     <AssemblyName>console</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
