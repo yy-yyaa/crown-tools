@@ -34,6 +34,7 @@
     <Compile Include="ConsoleClient.cs" />
     <Compile Include="JSON.cs" />
     <Compile Include="Math.cs" />
+    <Compile Include="NJSON.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
