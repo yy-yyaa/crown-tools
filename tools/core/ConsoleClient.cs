@@ -1,12 +1,15 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2012-2014 Daniele Bartolini and individual contributors.
+ * License: https://github.com/taylor001/crown/blob/master/LICENSE
+ */
+
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Collections;
 
 namespace Crown
-{
-namespace Core
 {
 	public delegate void MessageReceived(object o, MessageReceivedArgs args);
 	public class MessageReceivedArgs : EventArgs
@@ -167,5 +170,4 @@ namespace Core
 				ConnectedEvent(this, new ConnectedArgs(address, port));
 		}
 	}
-} // namespace Core
 } // namespace Crown

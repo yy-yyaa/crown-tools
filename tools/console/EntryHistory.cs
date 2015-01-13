@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2012-2014 Daniele Bartolini and individual contributors.
+ * License: https://github.com/taylor001/crown/blob/master/LICENSE
+ */
+
+using System;
 
 namespace Crown
 {

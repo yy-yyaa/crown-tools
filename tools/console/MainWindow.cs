@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2012-2014 Daniele Bartolini and individual contributors.
+ * License: https://github.com/taylor001/crown/blob/master/LICENSE
+ */
+
 using System;
 using Gtk;
 using Gdk;
@@ -5,9 +10,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
-using Newtonsoft.Json.Linq;
 using Crown.Console;
-using Crown.Core;
+using Crown;
+using System.Collections;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -29,14 +34,14 @@ public partial class MainWindow: Gtk.Window
 		Build ();
 
 		ActionEntry[] entries = new ActionEntry[] {
-			new ActionEntry("Unpause", null, "Unpause", "<ctrl>U", null, OnUnpause),
-			new ActionEntry("EngineMenu", null, "_Engine", null, null, null),
+			new ActionEntry("menu-engine",        null, "_Engine", null,        null, null                     ),
+			new ActionEntry("unpause",            null, "Unpause", "<ctrl>U",   null, OnUnpause                ),
 
-			new ActionEntry("RebuildAndReload", null, "Rebuild And Reload", null, null, OnRebuildAndReload),
-			new ActionEntry("ScriptMenu", null, "_Script", null, null, null),
+			new ActionEntry("menu-script",        null, "_Script",              null, null, null               ),
+			new ActionEntry("rebuild-and-reload", null, "Rebuild And Reload",   null, null, OnRebuildAndReload ),
 
-			new ActionEntry("Reconnect", null, "Reconnect", "<ctrl>R", null, null),
-			new ActionEntry("ConnectMenu", null, "_Connect", null, null, null)
+			new ActionEntry("menu-connect",       null, "_Connect",  null,      null, null                     ),
+			new ActionEntry("reconnect",          null, "Reconnect", "<ctrl>R", null, null                     )
 		};
 
 		Actions = new ActionGroup("group");
@@ -77,7 +82,7 @@ public partial class MainWindow: Gtk.Window
 		vbox1.PackStart(entry1, false, true, 0);
 
 		EnableMainMenu(false);
-		Actions.GetAction("ScriptMenu").Sensitive = false;
+		Actions.GetAction("menu-script").Sensitive = false;
 		Client = new ConsoleClient();
 		Client.ConnectedEvent += OnConnected;
 		Client.DisconnectedEvent += OnDisconnected;
@@ -88,14 +93,14 @@ public partial class MainWindow: Gtk.Window
 
 	protected void EnableMainMenu(bool enable)
 	{
-		Actions.GetAction("EngineMenu").Sensitive = enable;
+		Actions.GetAction("menu-engine").Sensitive = enable;
 		// Actions.GetAction("ScriptMenu").Sensitive = enable;
 	}
 
 	protected void OnConnected(object o, ConnectedArgs args)
 	{
 		EnableMainMenu(true);
-		LogInfo("Connected to " + args.Address + ":" + args.Port.ToString() + "\n");
+		LogInfo("Connected to " + args.Address + ":" + args.Port.ToString());
 	}
 
 	protected void OnDisconnected(object o, DisconnectedArgs args)
@@ -106,13 +111,13 @@ public partial class MainWindow: Gtk.Window
 
 	protected void Connect(string addr, int port)
 	{
-		LogInfo("Trying " + addr + ":" + port.ToString() + "\n");
+		LogInfo("Trying " + addr + ":" + port.ToString());
 		Client.Connect(addr, port);
 	}
 
 	protected void OnMessageReceived(object o, MessageReceivedArgs args)
 	{
-		JObject obj = JObject.Parse(args.Json);
+		Hashtable obj = JSON.Decode(System.Text.Encoding.UTF8.GetBytes(args.Json));
 		if (obj["type"].ToString() == "message")
 		{
 			string severity = obj["severity"].ToString();
@@ -135,7 +140,7 @@ public partial class MainWindow: Gtk.Window
 		{
 			History.Push(text);
 			Client.SendScript(text);
-			LogInfo("> " + text + "\n");
+			LogInfo("> " + text);
 		}
 
 		entry1.Text = "";
@@ -170,6 +175,7 @@ public partial class MainWindow: Gtk.Window
 	// Logging
 	private void WriteLog(string text, string tag)
 	{
+		text += "\n";
 		Gtk.Application.Invoke (delegate {
 			TextIter endIter = textview1.Buffer.EndIter;
 			textview1.Buffer.Insert(ref endIter, text);
