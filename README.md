@@ -9,3 +9,8 @@ TCP/IP console with autocomplete and color-coded output highlighting.
 [WIP] Node editor.
 
 ![node-editor](https://raw.githubusercontent.com/taylor001/crown/master/shots/node-editor.png)
+
+Contact
+-------
+
+[@aa_dani_bart](https://twitter.com/aa_dani_bart)
